@@ -33,18 +33,18 @@ export const roomService = {
   },
 
   async getAllRooms() {
-    return await RoomModel.find();
+    return await RoomTypeModel.find();
   },
 
   async getRoomById(id: string) {
-    return await RoomModel.findById(id);
+    return await RoomTypeModel.findById(id);
   },
 
   async updateRoom(id: string, newName: string, newPrice: number) {
-    return await RoomModel.findByIdAndUpdate(id, { name: newName, price: newPrice }, { new: true });
+    return await RoomTypeModel.findByIdAndUpdate(id, { name: newName, price: newPrice }, { new: true });
   },
 
   async deleteRoom(id: string) {
-    return await RoomModel.findByIdAndDelete(id);
+    return await RoomTypeModel.findByIdAndDelete(id);
   }
 };

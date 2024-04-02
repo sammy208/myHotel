@@ -1,6 +1,9 @@
+import express, { Request, Response,NextFunction } from "express";
+import { defaults } from "joi";
+
 const API_KEY = 'learnable.task.X';
 
-const apiKeyValidator = (req, res, next) => {
+const apiKeyValidator = (req: Request, res: Response, next: NextFunction) => {
   const apiKey = req.headers['x-api-key']; 
 
   if (!apiKey || apiKey !== API_KEY) {
@@ -9,4 +12,4 @@ const apiKeyValidator = (req, res, next) => {
   next();
 };
 
-module.exports = apiKeyValidator;
+export default apiKeyValidator;

@@ -1,5 +1,6 @@
 import  { Request, Response} from 'express';
-import Room from'../models/room';
+import Room from'../models/room.ts';
+import RoomTypeModel from '../models/roomType.ts';
 
 interface RoomData {
     name: string;
@@ -8,9 +9,9 @@ interface RoomData {
 }
 
 // Controller functions for managing rooms
-// const roomController = {
+const roomController = {
   // Creating rooms
-export const createRoom = (req: Request, res: Response) => {
+export const createRoom = async (req: Request, res: Response) =>  {
     try {
       const { name, roomType, price } = req.body;
       const newRoom = new Room( name, roomType, price );
@@ -25,7 +26,7 @@ export const createRoom = (req: Request, res: Response) => {
   // for fetching all rooms
 export const getAllRooms = async (req: Request, res: Response) => {
     try {
-      const rooms = await Room.find();
+      const rooms = await RoomTypeModel.find();
       res.status(200).json({ data: rooms });
     } catch (error) {
       console.error(error);
@@ -36,7 +37,7 @@ export const getAllRooms = async (req: Request, res: Response) => {
   // for fetching a single room by ID
   async getRoomById(req: Request, res: Response) {
     try {
-      const room = await Room.findById(req.params.id);
+      const room = await RoomTypeModel.findById(req.params.id);
       if (!room) {
         return res.status(404).json({ message: 'Room not found' });
       }
@@ -52,7 +53,7 @@ export const getAllRooms = async (req: Request, res: Response) => {
     try {
 
       const { name, price }: Partial<RoomData> = req.body;
-      const updatedRoom = await Room.findByIdAndUpdate(
+      const updatedRoom = await RoomTypeModel.findByIdAndUpdate(
         req.params.id,
         { name, price },
         { new: true }
@@ -70,7 +71,7 @@ export const getAllRooms = async (req: Request, res: Response) => {
   // for deleting a room by ID
   async deleteRoomById(req: Request, res: Response) {
     try {
-      const deletedRoom = await Room.findByIdAndDelete(req.params.id);
+      const deletedRoom = await RoomTypeModel.findByIdAndDelete(req.params.id);
       if (!deletedRoom) {
         return res.status(404).json({ message: 'Room not found' });
       }

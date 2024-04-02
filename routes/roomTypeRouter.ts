@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import RoomType from '../models/roomType.ts';
-import * as roomTypeController from '../controllers/roomTypeController.ts';
+import roomTypeController from '../controllers/roomTypeController.ts';
 import { asyncHandler } from '../utils/utils';
 
 const router = express.Router();
@@ -19,15 +19,15 @@ const validateRoomType = (req: Request, res: Response, next: NextFunction) => {
 router.post('/api/v1/room-types', validateRoomType, asyncHandler(roomTypeController.createRoomType));
 
 // GET endpoint for fetching all room types
-router.get('/api/v1/room-types', asyncHandler(roomTypeController.getAllRoomTypes));
+router.get('/api/v1/room-types', asyncHandler(roomTypeController.getRoomTypes));
 
 // GET endpoint for getting a room type by ID
-router.get('/api/v1/room-types/:id', asyncHandler(roomTypeController.getRoomTypeById));
+router.get('/api/v1/room-types/:id', asyncHandler(roomTypeController.getTypeById));
 
 // PATCH endpoint for updating a room type by ID
-router.patch('/api/v1/room-types/:id', validateRoomType, asyncHandler(roomTypeController.updateRoomTypeById));
+router.patch('/api/v1/room-types/:id', validateRoomType, asyncHandler(roomTypeController.updateTypeById));
 
 // DELETE endpoint for deleting a room type by ID
-router.delete('/api/v1/room-types/:id', asyncHandler(roomTypeController.deleteRoomTypeById));
+router.delete('/api/v1/room-types/:id', asyncHandler(roomTypeController.deleteRoomType));
 
 export default router;
